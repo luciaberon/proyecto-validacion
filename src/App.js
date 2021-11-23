@@ -1,20 +1,22 @@
-import {BrowserRoute, Routes, Route} from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "../styles/theme";
-import Fonts from "../styles/fonts";
-import Home from "./pages/Home"
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { ChakraProvider, Container } from "@chakra-ui/react";
+
+
+import theme from "./styles/theme";
+import Fonts from "./styles/fonts";
+import Home from "./pages/Home.js"
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <div className="App">
+      <Container mt={10} className="App">
         <Fonts />
-        <BrowserRoute>
+        <BrowserRouter>
         <Routes>
-          <Route path="/" component={Home} />
+          <Route path="/" element={<Home/>} />
         </Routes>
-        </BrowserRoute>
-      </div>{" "}
+        </BrowserRouter>
+      </Container>
     </ChakraProvider>
   );
 }
