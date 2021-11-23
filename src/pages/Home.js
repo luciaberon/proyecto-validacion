@@ -45,6 +45,8 @@ export default function Home() {
           variant="flushed"
           type="text"
           placeholder="Nombre"
+          focusBorderColor="teal.500"
+
           {...register("First name", { required: true, maxLength: 20 })}
         />
         <Input
@@ -52,6 +54,8 @@ export default function Home() {
           variant="flushed"
           type="text"
           placeholder="Apellidos"
+          focusBorderColor="teal.500"
+
           {...register("Last name", { required: true, maxLength: 100 })}
         />
 <InputGroup>
@@ -60,6 +64,8 @@ export default function Home() {
           variant="flushed"
           type="text"
           placeholder="Email"
+          focusBorderColor="teal.500"
+
           {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
         />
     <InputLeftElement
@@ -80,6 +86,8 @@ export default function Home() {
           mt={6}
           variant="flushed"
           type="tel"
+          focusBorderColor="teal.500"
+
           placeholder="Número de teléfono"
           {...register("Mobile number", {
             required: true,
@@ -90,6 +98,7 @@ export default function Home() {
         <InputGroup>
           <Input
             mt={6}
+            focusBorderColor="teal.500"
             variant="flushed"
             type={show ? "text" : "password"}
             placeholder="Contraseña"
