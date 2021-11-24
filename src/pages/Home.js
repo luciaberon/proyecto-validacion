@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { register, checkLogged } from '../features/auth/authSlice';
 import {
   Container,
   Input,
@@ -15,14 +17,18 @@ import {
 import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    dispatch(register(data))
+  }
   console.log(errors);
-
+  
+ 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 

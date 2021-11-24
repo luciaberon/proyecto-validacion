@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { login, checkLogged } from "../features/auth/authSlice";
 import {
   Container,
   Input,
@@ -16,12 +18,16 @@ import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    dispatch(login(data))
+  }
   console.log(errors);
 
   const [show, setShow] = React.useState(false);
