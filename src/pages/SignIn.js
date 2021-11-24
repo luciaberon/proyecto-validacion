@@ -13,8 +13,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function SignIn() {
   const {
     register,
     handleSubmit,
@@ -39,31 +40,17 @@ export default function Home() {
         Bienvenido
       </Heading>
       <Text as="h3" size="md">
-        Introduzca sus datos para realizar el registro
+        Inicie sesión o{" "}
+        <Link to="/" passHref={true}>
+          regístrese
+        </Link>
       </Text>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          mt={6}
-          variant="flushed"
-          type="text"
-          placeholder="Nombre"
-          focusBorderColor="teal.500"
-          colorScheme="teal"
-          {...register("First name", { required: true, maxLength: 20 })}
-        />
-        <Input
-          mt={6}
-          variant="flushed"
-          type="text"
-          placeholder="Apellidos"
-          colorScheme="teal"
-          focusBorderColor="teal.500"
-          {...register("Last name", { required: true, maxLength: 100 })}
-        />
         <InputGroup>
           <Input
-            mt={6}
+            mt={10}
+            minW="40ch"
             variant="flushed"
             type="text"
             placeholder="Email"
@@ -71,32 +58,14 @@ export default function Home() {
             focusBorderColor="teal.500"
             {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
           />
-          <InputLeftElement
-            mt={6}
+          <InputRightElement
+            mt={10}
             pointerEvents="none"
             children={<EmailIcon color="teal" />}
+            mr={4}
           />
         </InputGroup>
-        <InputGroup>
-          <InputLeftElement
-            mt={6}
-            pointerEvents="none"
-            children={<PhoneIcon color="teal" />}
-          />
-          <Input
-            mt={6}
-            variant="flushed"
-            type="tel"
-            colorScheme="teal"
-            focusBorderColor="teal.500"
-            placeholder="Número de teléfono"
-            {...register("Mobile number", {
-              required: true,
-              minLength: 6,
-              maxLength: 12,
-            })}
-          />
-        </InputGroup>
+
         <InputGroup>
           <Input
             mt={6}
