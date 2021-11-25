@@ -1,16 +1,26 @@
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
-import { Container, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, IconButton } from "@chakra-ui/react";
 import ThemeToggleButton from "../components/theme-toggle-button";
+import { AiOutlineHome } from "react-icons/ai";
+
 export default function NavBar() {
   return (
-    <Flex mb={20} maxW="70vw" display="flex" justify="flex-end">
-      <BrowserRouter>
-        <Link to="/iniciarsesion" passHref={true}>
-          <Button colorScheme="teal">Inicia Sesión</Button>
-          <ThemeToggleButton />
+    <Flex mb={20} maxW="70vw" justify="space-between">
+      <Link href="/">
+        <IconButton colorScheme="teal" icon={<AiOutlineHome />}></IconButton>
+      </Link>
+
+      <Box>
+        <Link href="/iniciarsesion">
+          <Button mr={6} colorScheme="teal">
+            Inicia Sesión
+          </Button>
         </Link>
-      </BrowserRouter>
+        <Link href="/">
+          <Button colorScheme="teal">Registrate</Button>
+        </Link>
+        <ThemeToggleButton />
+      </Box>
     </Flex>
   );
 }
