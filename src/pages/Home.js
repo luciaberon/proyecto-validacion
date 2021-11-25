@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { register, checkLogged } from '../features/auth/authSlice';
+import { register, checkLogged } from "../features/auth/authSlice";
 import {
   Container,
   Input,
@@ -24,11 +24,11 @@ export default function Home() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    dispatch(register(data))
-  }
+    console.log(data);
+    dispatch(register(data));
+  };
   console.log(errors);
-  
- 
+
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -56,7 +56,7 @@ export default function Home() {
           placeholder="Nombre"
           focusBorderColor="teal.500"
           colorScheme="teal"
-          {...register("First name", { required: true, maxLength: 20 })}
+          {...register("firstname", { required: true, maxLength: 20 })}
         />
         <Input
           mt={6}
@@ -65,7 +65,7 @@ export default function Home() {
           placeholder="Apellidos"
           colorScheme="teal"
           focusBorderColor="teal.500"
-          {...register("Last name", { required: true, maxLength: 100 })}
+          {...register("lastname", { required: true, maxLength: 100 })}
         />
         <InputGroup>
           <Input
@@ -75,7 +75,7 @@ export default function Home() {
             placeholder="Email"
             colorScheme="teal"
             focusBorderColor="teal.500"
-            {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
           <InputLeftElement
             mt={6}
@@ -96,7 +96,7 @@ export default function Home() {
             colorScheme="teal"
             focusBorderColor="teal.500"
             placeholder="Número de teléfono"
-            {...register("Mobile number", {
+            {...register("mobilenumber", {
               required: true,
               minLength: 6,
               maxLength: 12,
@@ -110,7 +110,7 @@ export default function Home() {
             variant="flushed"
             type={show ? "text" : "password"}
             placeholder="Contraseña"
-            {...register("Contraseña", { required: true })}
+            {...register("password", { required: true })}
           />
           <InputRightElement mt={6} width="4.5rem">
             <IconButton
@@ -123,6 +123,8 @@ export default function Home() {
             </IconButton>
           </InputRightElement>
         </InputGroup>
+        {errors.message && errors.message.message}
+
         <Button colorScheme="teal" mt={10} type="submit">
           {" "}
           Enviar{" "}
