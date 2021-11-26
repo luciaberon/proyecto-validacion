@@ -17,6 +17,7 @@ import NavBar from "./pages/NavBar";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import Validation from "./pages/Validation";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
             <ProtectedAuth path="/" element={<Home />} />
             <ProtectedAuth path="/iniciarsesion" element={<SignIn />} />
             <ProtectedAuth path="/validacion" element={<Validation />} />
+            <ProtectedAuth path="/paneladministracion" element={<AdminDashboard />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
