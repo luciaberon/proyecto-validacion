@@ -1,10 +1,10 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { register } from '../features/auth/authSlice';
+import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
-import { register, checkLogged } from "../features/auth/authSlice";
 import {
   Container,
-  Input,
   InputGroup,
   Button,
   IconButton,
@@ -14,20 +14,48 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import {
+  InputControl,
+} from "formik-chakra-ui";
 import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Home() {
+
+    const initialValues = {
+        firstname: '',
+        lastname: '',
+        email: '',
+        username:'',
+        password: '',
+        phone: ''
+    }
+
+    const registerSchema = Yup.object().shape(
+        {
+            firstname: Yup.string()
+                .min(3, 'Nombre muy corto')
+                .max(16, 'Nombre muy largo')
+                .required('Nombre requerido'),
+            lastname: Yup.string()
+                .min(3, 'Apellido muy corto')
+                .max(16, 'Apellido muy largo')
+                .required('Apellido requerido'),
+            email: Yup.string()
+                .email('Formato de email inválido')
+                .required('Email requerido'),
+            password: Yup.string()
+                .min(8, 'Contraseña muy corta')
+                .required('Contraseña requerida'),
+            phone: Yup.string()
+                .min(6, 'Número muy corto')
+                .required('Número de teléfono requerido'),
+            username: Yup.number()
+                .min(8,'Número muy corto')
+                .required('Número de documento requerido')
+        }
+    )
+
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    dispatch(register(data));
-  };
-  console.log(errors);
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -48,88 +76,112 @@ export default function Home() {
         Introduzca sus datos para realizar el registro
       </Text>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          mt={6}
-          variant="flushed"
-          type="text"
-          placeholder="Nombre"
-          focusBorderColor="teal.500"
-          colorScheme="teal"
-          {...register("firstname", { required: true, maxLength: 20 })}
-        />
-        <Input
-          mt={6}
-          variant="flushed"
-          type="text"
-          placeholder="Apellidos"
-          colorScheme="teal"
-          focusBorderColor="teal.500"
-          {...register("lastname", { required: true, maxLength: 100 })}
-        />
-        <InputGroup>
-          <Input
-            mt={6}
-            variant="flushed"
-            type="text"
-            placeholder="Email"
-            colorScheme="teal"
-            focusBorderColor="teal.500"
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-          />
-          <InputLeftElement
-            mt={6}
-            pointerEvents="none"
-            children={<EmailIcon color="teal" />}
-          />
-        </InputGroup>
-        <InputGroup>
-          <InputLeftElement
-            mt={6}
-            pointerEvents="none"
-            children={<PhoneIcon color="teal" />}
-          />
-          <Input
-            mt={6}
-            variant="flushed"
-            type="tel"
-            colorScheme="teal"
-            focusBorderColor="teal.500"
-            placeholder="Número de teléfono"
-            {...register("mobilenumber", {
-              required: true,
-              minLength: 6,
-              maxLength: 12,
-            })}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Input
-            mt={6}
-            focusBorderColor="teal.500"
-            variant="flushed"
-            type={show ? "text" : "password"}
-            placeholder="Contraseña"
-            {...register("password", { required: true })}
-          />
-          <InputRightElement mt={6} width="4.5rem">
-            <IconButton
-              colorScheme="teal"
-              h="1.75rem"
-              size="sm"
-              onClick={handleClick}
-            >
-              {show ? <ViewOffIcon /> : <ViewIcon />}
-            </IconButton>
-          </InputRightElement>
-        </InputGroup>
-        {errors.message && errors.message.message}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={registerSchema}
+        onSubmit={async(values) => {
+          dispatch(register(values));
+      }}
+      >
+      {({ values,
+            touched,
+            isSubmiting,
+            handleChange,
+            handleBlur }) => (
 
-        <Button colorScheme="teal" mt={10} type="submit">
-          {" "}
-          Enviar{" "}
-        </Button>
-      </form>
+              <Form>
+                  <InputControl id="firstname" name="firstname" 
+                    mt={6}
+                    variant="flushed"
+                    type="text"
+                    focusBorderColor="teal.500"
+                    w="350px"
+                    colorScheme="teal"
+                    inputProps={{ placeholder: 'Nombre' }}
+                  />
+
+                  <InputControl  id="lastname" name="lastname"
+                    mt={6}
+                    variant="flushed"
+                    type="text"
+                    placeholder="Apellidos"
+                    colorScheme="teal"
+                    w="350px"
+                    focusBorderColor="teal.500"
+                    inputProps={{ placeholder: 'Apellido' }}
+                  />
+                  <InputControl id="username" name="username" 
+                    mt={6}
+                    w="350px"
+                    variant="flushed"
+                    type="text"
+                    placeholder="Número de documento"
+                    colorScheme="teal"
+                    focusBorderColor="teal.500"
+                    inputProps={{ placeholder: 'Número de documento' }}
+                  />
+
+                <InputGroup>
+                  <InputControl id="email" name="email" 
+                    mt={6}
+                    w="350px"
+                    variant="flushed"
+                    type="text"
+                    placeholder="Email"
+                    colorScheme="teal"
+                    focusBorderColor="teal.500"
+                    inputProps={{ placeholder: 'Correo electrónico' }}
+                  />
+                  <InputLeftElement
+                    mt={6}
+                    pointerEvents="none"
+                    children={<EmailIcon color="teal" />}
+                  />
+                </InputGroup>
+
+                <InputGroup>
+                  <InputControl id="phone" name="phone"
+                    mt={6}
+                    w="350px"
+                    variant="flushed"
+                    type="tel"
+                    colorScheme="teal"
+                    focusBorderColor="teal.500"
+                    inputProps={{ placeholder: 'Número de teléfono' }}
+                  />
+                  <InputLeftElement
+                    mt={6}
+                    pointerEvents="none"
+                    children={<PhoneIcon color="teal" />}
+                  />
+                </InputGroup>
+
+                <InputGroup>
+                  <InputControl name="password" id="password"
+                    mt={6}
+                    focusBorderColor="teal.500"
+                    variant="flushed"
+                    w="350px"
+                    inputProps={{ placeholder: 'Contraseña', type: show ? "text" : "password"}}
+                  />
+                  <InputRightElement mt={6} width="4.5rem">
+                  <IconButton
+                    colorScheme="teal"
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClick}
+                  >
+                    {show ? <ViewOffIcon /> : <ViewIcon />}
+                  </IconButton>
+                  </InputRightElement>
+                </InputGroup>               
+                <Button colorScheme="teal" mt={10} type="submit">
+                  {" "}
+                  Enviar{" "}
+                </Button>
+              </Form>
+            )}
+      </Formik>
     </Container>
   );
 }

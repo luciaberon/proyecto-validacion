@@ -3,8 +3,6 @@ import { ChakraProvider, Container } from "@chakra-ui/react";
 import { useEffect } from 'react';
 import { checkLogged } from './features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux';
-import { Provider } from 'react-redux';
-import store from './app/store';
 
 import theme from "./styles/theme";
 import Fonts from "./styles/fonts";

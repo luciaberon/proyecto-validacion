@@ -7,7 +7,7 @@ const headers = {
 
 
 export const login = async (data) => {
-    const response = await axios.post('validacion-desarrollo.herokuapp.com/login', data, {
+    const response = await axios.post('validacion-desarrollo.herokuapp.com/api/auth/login', data, {
         headers: headers,
     })  
 
@@ -23,7 +23,7 @@ export const logout = () => {
 
 export const register = data => {
     console.log("Data",data);
-    axios.post('validacion-desarrollo.herokuapp.com/register', data)
+    axios.post('validacion-desarrollo.herokuapp.com/api/auth/register', data)
 }
 
 // Authentication service

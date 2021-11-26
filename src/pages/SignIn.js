@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { login, checkLogged } from "../features/auth/authSlice";
+import { useDispatch } from 'react-redux';
+import { login } from "../features/auth/authSlice";
 import {
   Container,
   Input,
@@ -9,12 +9,11 @@ import {
   Button,
   IconButton,
   InputRightElement,
-  InputLeftElement,
   Avatar,
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
@@ -24,10 +23,9 @@ export default function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   const onSubmit = (data) => {
-    dispatch(login(data));
-  };
+    dispatch(login(data))
+  }
   console.log(errors);
 
   const [show, setShow] = React.useState(false);
@@ -59,15 +57,15 @@ export default function SignIn() {
             minW="40ch"
             variant="flushed"
             type="text"
-            placeholder="Email"
+            placeholder="Documento de identidad"
             colorScheme="teal"
             focusBorderColor="teal.500"
-            {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("Username", { required: true })}
           />
           <InputRightElement
             mt={10}
             pointerEvents="none"
-            children={<EmailIcon color="teal" />}
+            children={<LockIcon color="teal" />}
             mr={4}
           />
         </InputGroup>
