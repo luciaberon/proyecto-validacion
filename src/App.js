@@ -2,7 +2,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Redirect,
   Navigate,
 } from "react-router-dom";
 import { ChakraProvider, Container } from "@chakra-ui/react";
@@ -17,6 +16,7 @@ import NavBar from "./pages/NavBar";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import Validation from "./pages/Validation";
+import ImageUpload from './pages/ImageUpload';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,6 @@ function App() {
             <ProtectedAuth path="/" element={<Home />} />
             <ProtectedAuth path="/iniciarsesion" element={<SignIn />} />
             <ProtectedAuth path="/validacion" element={<Validation />} />
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
