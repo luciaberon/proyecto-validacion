@@ -3,10 +3,13 @@ import React from "react";
 import QRCode from "react-qr-code";
 
 const userFalso = {
+  id: 1,
   nombre: "Fulano",
   apellido: "Fulanito",
   validationUrl: "http://google.es",
 };
+
+const QRURL = `/validacion${userFalso.id}`;
 
 export default function Validation() {
   return (
@@ -19,7 +22,7 @@ export default function Validation() {
         Escanee el siguiente código QR con su telefono para continuar:
       </Text>
       <Box mt={6}>
-        <QRCode value={userFalso.validationUrl} />
+        <QRCode value={QRURL} />
       </Box>
     </Flex>
   );

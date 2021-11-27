@@ -12,6 +12,7 @@ import {
   Image,
   Button,
 } from "@chakra-ui/react";
+import { validateUser } from '../services/adminAuthService';
 import React from "react";
 
 //TODOO VALIDAR DOCUMENTOS
