@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const headers = {
-    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
 }
 
 
@@ -24,9 +24,7 @@ export const logout = () => {
 
 export const register = data => {
     console.log("Data",data);
-    axios.post('https://validacion-desarrollo.herokuapp.com/api/auth/register', {
-        headers:headers},
-        data)
+    axios.post('//validacion-desarrollo.herokuapp.com/api/auth/register/', data)
 }
 
 // Authentication service
