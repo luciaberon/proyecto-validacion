@@ -2,18 +2,18 @@ import axios from 'axios';
 
 const headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
 }
 
 
 // AUTH SERVICES: LOGIN, REGISTER AND LOGOUT
 export const login = async (data) => {
-    const response = await axios.post('validacion-desarrollo.herokuapp.com/api/auth/login', data, {
-        headers: headers,
-    })  
+    console.log(data)
+    console.log(headers)
+    const response = await axios.post('//validacion-desarrollo.herokuapp.com/api/auth/login', data);  
 
     if (response.data.token) {
-        localStorage.setItem('user',response.data.token)
+        localStorage.setItem('user',response.data.token);
+        localStorage.setItem('username',response.data.token);
     }
 }
 
@@ -24,7 +24,9 @@ export const logout = () => {
 
 export const register = data => {
     console.log("Data",data);
-    axios.post('validacion-desarrollo.herokuapp.com/api/auth/register', data)
+    axios.post('https://validacion-desarrollo.herokuapp.com/api/auth/register', {
+        headers:headers},
+        data)
 }
 
 // Authentication service

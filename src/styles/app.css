@@ -1,4 +1,6 @@
 #email, #phone {
     padding-left: 35px;
 }
-
+#root > div > div.css-u6v8er > form > div {
+    width: 450px;
+}

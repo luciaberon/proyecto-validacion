@@ -1,5 +1,3 @@
-import { FormLabel } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
 import {
   Flex,
   Button,
@@ -11,6 +9,26 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { FormLabel } from "@chakra-ui/form-control";
+import { Input } from "@chakra-ui/input";
+import { uploadImages } from "../services/axiosService";
+// Import React FilePond
+import { FilePond, File, registerPlugin } from 'react-filepond'
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css'
+
+// Import the Image EXIF Orientation and Image Preview plugins
+// Note: These need to be installed separately
+// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
+
+
 
 export default function ResponsiveUpload() {
   const userFalso = {
@@ -27,6 +45,7 @@ export default function ResponsiveUpload() {
   const [files, setFiles] = useState(null);
   const [error, setError] = useState(null);
   let hiddenInput = null;
+
 
   const types = ["image/png", "image/jpeg", "image/jpg"];
 
@@ -59,23 +78,24 @@ export default function ResponsiveUpload() {
         </ListItem>
       </UnorderedList>
       <form>
-        <Button onClick={() => hiddenInput.click()}>Subir imagenes</Button>
-        <input
-          hidden
-          name="file"
-          type="file"
-          ref={(el) => (hiddenInput = el)}
-          onChange={(e) => handleChange}
-          multiple
+        
+        <FilePond
+          files={files}
+          onupdatefiles={setFiles}
+          allowMultiple={true}
+          maxFiles={2}
+          server={{
+                process: {
+                     url: "validacion-desarrollo.herokuapp.com/api/onboarding/dni",
+                     ondata: (formData) => {
+                      formData.append('username', localStorage.getItem('username'));
+                       return formData;
+                }}
+          }}
+          name="files"
+          labelIdle='Drag and Drop your files or <span class="filepond--label-action">Browse</span>'
         />
       </form>
-      {/* NO FUNCIONA, CREO QUE HAY QUE GUARDARLAS EN LOCALSTORAGE 
-      la idea es previsualizar las imagenes y borrarlas si no son correctas
-      para poder volverlas a subir*/}
-      {files && files.map((file) => <Image scr={file} />)}{" "}
-      <Button colorScheme="teal" mt={10}>
-        Enviar documentos
-      </Button>
     </Flex>
   );
 }

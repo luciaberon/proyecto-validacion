@@ -22,21 +22,20 @@ import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 export default function Home() {
 
     const initialValues = {
-        firstname: '',
-        lastname: '',
+        name: '',
+        surname: '',
         email: '',
         username:'',
         password: '',
-        phone: ''
     }
 
     const registerSchema = Yup.object().shape(
         {
-            firstname: Yup.string()
+            name: Yup.string()
                 .min(3, 'Nombre muy corto')
                 .max(16, 'Nombre muy largo')
                 .required('Nombre requerido'),
-            lastname: Yup.string()
+            surname: Yup.string()
                 .min(3, 'Apellido muy corto')
                 .max(16, 'Apellido muy largo')
                 .required('Apellido requerido'),
@@ -46,9 +45,6 @@ export default function Home() {
             password: Yup.string()
                 .min(8, 'Contraseña muy corta')
                 .required('Contraseña requerida'),
-            phone: Yup.string()
-                .min(6, 'Número muy corto')
-                .required('Número de teléfono requerido'),
             username: Yup.number()
                 .min(8,'Número muy corto')
                 .required('Número de documento requerido')
@@ -90,7 +86,7 @@ export default function Home() {
             handleBlur }) => (
 
               <Form>
-                  <InputControl id="firstname" name="firstname" 
+                  <InputControl id="name" name="name" 
                     mt={6}
                     variant="flushed"
                     type="text"
@@ -100,7 +96,7 @@ export default function Home() {
                     inputProps={{ placeholder: 'Nombre' }}
                   />
 
-                  <InputControl  id="lastname" name="lastname"
+                  <InputControl  id="surname" name="surname"
                     mt={6}
                     variant="flushed"
                     type="text"
@@ -136,23 +132,6 @@ export default function Home() {
                     mt={6}
                     pointerEvents="none"
                     children={<EmailIcon color="teal" />}
-                  />
-                </InputGroup>
-
-                <InputGroup>
-                  <InputControl id="phone" name="phone"
-                    mt={6}
-                    w="350px"
-                    variant="flushed"
-                    type="tel"
-                    colorScheme="teal"
-                    focusBorderColor="teal.500"
-                    inputProps={{ placeholder: 'Número de teléfono' }}
-                  />
-                  <InputLeftElement
-                    mt={6}
-                    pointerEvents="none"
-                    children={<PhoneIcon color="teal" />}
                   />
                 </InputGroup>
 

@@ -9,7 +9,7 @@ const userFalso = {
   validationUrl: "http://google.es",
 };
 
-const QRURL = `/validacion${userFalso.id}`;
+const QRURL = `/validacion`;
 
 export default function Validation() {
   return (

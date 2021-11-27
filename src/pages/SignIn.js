@@ -60,7 +60,7 @@ export default function SignIn() {
             placeholder="Documento de identidad"
             colorScheme="teal"
             focusBorderColor="teal.500"
-            {...register("Username", { required: true })}
+            {...register("username", { required: true })}
           />
           <InputRightElement
             mt={10}
@@ -76,8 +76,8 @@ export default function SignIn() {
             focusBorderColor="teal.500"
             variant="flushed"
             type={show ? "text" : "password"}
-            placeholder="Contraseña"
-            {...register("Contraseña", { required: true })}
+            placeholder="password"
+            {...register("password", { required: true })}
           />
           <InputRightElement mt={6} width="4.5rem">
             <IconButton
