@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/app.css"],"names":[],"mappings":"AAAA,cACI,iBACJ,CACA,kCACI,WACJ","file":"main.10852826.chunk.css","sourcesContent":["#email, #phone {\n    padding-left: 35px;\n}\n#root > div > div.css-u6v8er > form > div {\n    width: 450px;\n}"]}
