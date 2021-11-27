@@ -6,9 +6,9 @@ import {
   Navigate,
 } from "react-router-dom";
 import { ChakraProvider, Container } from "@chakra-ui/react";
-import { useEffect } from 'react';
-import { checkLogged } from './features/auth/authSlice'
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { checkLogged } from "./features/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 import theme from "./styles/theme";
 import Fonts from "./styles/fonts";
@@ -18,6 +18,7 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import Validation from "./pages/Validation";
 import AdminDashboard from "./pages/AdminDashboard";
+import ResponsiveUpload from "./pages/ResponsiveUpload";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container mt={10} className="App">
+      <Container p={10} mt={5} className="App">
         <Fonts />
         <NavBar />
         <BrowserRouter>
@@ -36,7 +37,14 @@ function App() {
             <ProtectedAuth path="/" element={<Home />} />
             <ProtectedAuth path="/iniciarsesion" element={<SignIn />} />
             <ProtectedAuth path="/validacion" element={<Validation />} />
-            <ProtectedAuth path="/paneladministracion" element={<AdminDashboard />} />
+            <ProtectedAuth
+              path="/paneladministracion"
+              element={<AdminDashboard />}
+            />
+            <ProtectedAuth
+              path="/validacion:id_user"
+              element={<ResponsiveUpload />}
+            />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
