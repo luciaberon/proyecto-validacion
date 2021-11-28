@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { login } from "../features/auth/authSlice";
-import { useNavigate } from "react-router";
+import { useHistory, Link } from "react-router-dom";
 import {
   Container,
   Input,
@@ -15,11 +15,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -29,9 +28,9 @@ export default function SignIn() {
     dispatch(login(data))
     let role = localStorage.getItem('username');
     if (role == "admin") {
-      navigate('/paneladministracion');
+      history.push('/paneladministracion');
     } else {
-      navigate('/validacion');
+      history.push('/validacion');
     }
   }
   console.log(errors);

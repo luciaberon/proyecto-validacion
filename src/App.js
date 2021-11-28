@@ -1,10 +1,9 @@
 import {
   HashRouter,
-  BrowserRouter,
-  Routes,
+  Switch,
   Route,
-  Navigate,
-} from "react-router-dom";
+  Redirect,
+} from 'react-router-dom';
 import { ChakraProvider, Container } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { checkLogged } from "./features/auth/authSlice";
@@ -26,6 +25,7 @@ function App() {
   const auth = useSelector((state) => state.auth.isLoggedIn);
   console.log("AUTH",auth)
   useEffect(() => {
+    console.log("checking")
     dispatch(checkLogged());
   }, []);
 
@@ -35,49 +35,48 @@ function App() {
         <Fonts />
         <HashRouter>
         <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />}  auth={auth} />
-            <Route path="/iniciarsesion" 
-                   element={<SignIn />} auth={auth} />
-            <Route 
-              path="/validacion" 
-              element={
-                <RequireAuth auth={auth}>
-                  <Validation />
-                </RequireAuth>
-              } 
-            />
-            <Route
-              path="/paneladministracion"
-              element={
-                <RequireAuth auth={auth}>
-                  <AdminDashboard />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/validarusuario"
-              element={<ResponsiveUpload />}
-              auth={auth} 
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Switch>
+            <ProtectedAuth exact path="/" component={Home} auth={auth} />
+            <ProtectedAuth exact path="/iniciarsesion" component={SignIn} auth={auth} />
+            <ProtectedRoute exact path="/validacion" component={Validation} auth={auth} />
+            <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
+            <ProtectedRoute exact path="/validarusuario" component={ResponsiveUpload} auth={auth} />
+            <Route component={NotFound} />
+          </Switch>
         </HashRouter>
       </Container>
     </ChakraProvider>
   );
 }
 
-function RequireAuth({ children, auth }) {
-  let isAuthenticated = auth;
-  let userRole = localStorage.getItem('username');
-  let route = userRole == "admin" ? "/paneladministracion" : "/validacion";  
-  return isAuthenticated ? children : <Navigate to={route} />;
+const ProtectedRoute = ({auth,component:Component,...rest}) => {  
+  return (
+    <Route
+    {...rest}
+    render={() => auth ? (
+      <Component />
+    ): 
+      (
+        <Redirect to="/iniciarsesion" />   
+      )
+    }
+    />
+  )
 }
 
-function CheckLogged({ children, redirectTo, auth }) {
-  let isAuthenticated = auth;
-  return !isAuthenticated ? children : <Navigate to={redirectTo} />;
+const ProtectedAuth = ({auth,component:Component,...rest}) => {
+  return (
+    <Route
+    {...rest}
+    render={() => !auth ? (
+      <Component />
+    ): 
+      (
+        <Redirect to="/validacion" />   
+      )
+    }
+    />
+  )
 }
 
 export default App;

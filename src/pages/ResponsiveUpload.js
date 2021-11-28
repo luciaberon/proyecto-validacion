@@ -8,11 +8,8 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
-import { FormLabel } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
-import { uploadImages } from "../services/axiosService";
 // Import React FilePond
 import { FilePond, File, registerPlugin } from 'react-filepond'
 
@@ -31,7 +28,7 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 
 export default function ResponsiveUpload() {
-  const navigate = useNavigate();
+  const history = useHistory();
   // Para mandarlo al back asociado al id
   //Hacer fetch del usuario con ese id
   const { id_user } = useParams();

@@ -9,11 +9,11 @@ import {
 } from "@chakra-ui/react";
 import ThemeToggleButton from "../components/theme-toggle-button";
 import { AiOutlineHome } from "react-icons/ai";
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function NavBar() {
   const [isLargerThan414] = useMediaQuery();
-  let navigate = useNavigate();
+  let history = useHistory();
 
   return (
     <Flex
@@ -22,7 +22,7 @@ export default function NavBar() {
       maxW="70vw"
       justify="space-between"
     >
-      <Link onClick={() => navigate('/', {replace: true})}>
+      <Link onClick={() => history.push('/')}>
         <IconButton colorScheme="teal" icon={<AiOutlineHome />}></IconButton>
       </Link>
 
@@ -32,12 +32,12 @@ export default function NavBar() {
         
         mt={isLargerThan414 ? "0" : "5"}
       >
-        <Link onClick={() => navigate('/iniciarsesion', { replace: true })}>
+        <Link onClick={() => history.push('/iniciarsesion')}>
           <Button mr={6} colorScheme="teal">
             Inicia Sesión
           </Button>
         </Link>
-        <Link onClick={() => navigate('/', {replace: true})}>
+        <Link onClick={() => history.push('/')}>
           <Button colorScheme="teal">Registrate</Button>
         </Link>
         <ThemeToggleButton />
