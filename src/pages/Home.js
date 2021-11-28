@@ -19,6 +19,7 @@ import {
   InputControl,
 } from "formik-chakra-ui";
 import { EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import UserDashboard from "./UserDashboard";
 
 export default function Home() {
 

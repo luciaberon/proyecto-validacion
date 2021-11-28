@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import Validation from "./pages/Validation";
 import AdminDashboard from "./pages/AdminDashboard";
 import ResponsiveUpload from "./pages/ResponsiveUpload";
+import UserDashboard from './pages/UserDashboard';
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
             <ProtectedRoute exact path="/validacion" component={Validation} auth={auth} />
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
             <ProtectedRoute exact path="/validarusuario" component={ResponsiveUpload} auth={auth} />
+            <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
+
             <Route component={NotFound} />
           </Switch>
         </HashRouter>
