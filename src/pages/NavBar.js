@@ -16,14 +16,14 @@ export default function NavBar() {
       justify="center"
       wrap="wrap"
     >
-        <Link onClick={() => history.push('/iniciarsesion')}>
+        <><Link onClick={() => history.push('/iniciarsesion')}>
           <Button m={2} colorScheme="teal">
             Inicia Sesión
           </Button>
         </Link>
         <Link onClick={() => history.push('/')}>
           <Button  m={2} colorScheme="teal">Registrate</Button>
-        </Link>
+        </Link></>
 
         <Link onClick={() => history.push('/')}>
           <Button m={2} colorScheme="red">Salir</Button>

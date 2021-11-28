@@ -27,7 +27,7 @@ export default function SignIn() {
   const onSubmit = (data) => {
     dispatch(login(data))
     let role = localStorage.getItem('username');
-    if (role == "admin") {
+    if (role === "admin") {
       history.push('/paneladministracion');
     } else {
       history.push('/validacion');
