@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 // axios config for api requests
-const URL = "validacion-desarrollo.herokuapp.com/api";
+const URL = "https://validacion-test.herokuapp.com/api/";
 
 
 export default axios.create({

@@ -12,60 +12,31 @@ import {
   Image,
   Button,
 } from "@chakra-ui/react";
-import { validateUser } from '../services/adminAuthService';
-import React from "react";
+import { getAllUsers, validateUser } from '../services/adminAuthService';
+import React, {useState, useEffect} from "react";
 
 //TODOO VALIDAR DOCUMENTOS
 //TODOO ANULAR VALIDACION
 
 export default function AdminDashboard() {
+  const [users, setUsers] = useState();
   // Fetch users and admin
   const adminFake = {
     username: "Admin",
   };
 
-  const userFakes = [
-    {
-      id: 1,
-      username: "54537689P",
-      name: "Fulano",
-      lastname: "Smith",
-      img1: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      img2: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      validate: false,
-    },
-    {
-      id: 2,
-      username: "54677689P",
-      name: "Menganito",
-      lastname: "Fernandez",
-      img1: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      img2: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      validate: true,
-    },
-    {
-      id: 3,
-      username: "54347689P",
-      name: "Manolito",
-      lastname: "Garcia",
-      img1: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      img2: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      validate: false,
-    },
-    {
-      id: 4,
-      username: "55647689P",
-      name: "Pepe",
-      lastname: "Gotera",
-      img1: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      img2: "https://s1.eestatic.com/2021/11/24/curiosidades/mascotas/629697961_216041764_1706x960.jpg",
-      validate: true,
-    },
-  ];
+  useEffect(() => {
+    const response = getAllUsers();
+    setUsers(users);
+  }, [])
+
+  const handleValidate = (username) => {
+    validateUser(username);
+  }
 
   //Filter users
-  const noValidates = userFakes.filter((user) => user.validate === false);
-  const validates = userFakes.filter((user) => user.validate === true);
+  const noValidates = users.filter((user) => user.validate === false);
+  const validates = users.filter((user) => user.validate === true);
   console.log(noValidates);
 
   //Images Alert
@@ -115,7 +86,7 @@ export default function AdminDashboard() {
                       />
                     </Box>
 
-                    <Button colorScheme="teal" m={4}>
+                    <Button onClick={() => handleValidate(noValidate.username)} colorScheme="teal" m={4}>
                       Validar documentos
                     </Button>
                   </AccordionPanel>

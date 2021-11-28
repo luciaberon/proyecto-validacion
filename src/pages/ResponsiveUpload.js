@@ -31,13 +31,6 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 
 export default function ResponsiveUpload() {
-  const userFalso = {
-    id: 1,
-    nombre: "Fulano",
-    apellido: "Fulanito",
-    validationUrl: "http://google.es",
-  };
-
   const navigate = useNavigate();
   // Para mandarlo al back asociado al id
   //Hacer fetch del usuario con ese id
@@ -46,6 +39,8 @@ export default function ResponsiveUpload() {
   const [error, setError] = useState(null);
   let hiddenInput = null;
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const username = queryParams.get('username');
 
   const types = ["image/png", "image/jpeg", "image/jpg"];
 
@@ -64,7 +59,7 @@ export default function ResponsiveUpload() {
   };
   return (
     <Flex direction="column" align="center" justify="center">
-      <Heading mb={6}>Bienvenido {userFalso.nombre}</Heading>
+      <Heading mb={6}>Bienvenido "NOMBRE"</Heading>
       <Text align="center">
         Para finalizar tu registro, necesitamos que subas tu documento de
         identidad. Ten en cuenta lo siguiente, por favor:
@@ -86,10 +81,10 @@ export default function ResponsiveUpload() {
           maxFiles={2}
           server={{
                 process: {
-                     url: "validacion-desarrollo.herokuapp.com/api/onboarding/dni",
+                     url: "https://validacion-test.herokuapp.com/api/onboarding/dni",
                      ondata: (formData) => {
-                      formData.append('username', localStorage.getItem('username'));
-                       return formData;
+                      formData.append('username', username);
+                      return formData;
                 }}
           }}
           name="files"

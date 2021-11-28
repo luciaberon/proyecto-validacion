@@ -1,4 +1,5 @@
 import {
+  HashRouter,
   BrowserRouter,
   Routes,
   Route,
@@ -19,9 +20,11 @@ import Validation from "./pages/Validation";
 import AdminDashboard from "./pages/AdminDashboard";
 import ResponsiveUpload from "./pages/ResponsiveUpload";
 
+
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.isLoggedIn);
+  console.log("AUTH",auth)
   useEffect(() => {
     dispatch(checkLogged());
   }, []);
@@ -30,45 +33,51 @@ function App() {
     <ChakraProvider theme={theme}>
       <Container p={10} mt={5} className="App">
         <Fonts />
+        <HashRouter>
         <NavBar />
-        <BrowserRouter>
           <Routes>
-            <ProtectedAuth path="/" element={<Home />} />
-            <ProtectedAuth path="/iniciarsesion" element={<SignIn />} />
-            <ProtectedAuth path="/validacion" element={<Validation />} />
-            <ProtectedAuth
+            <Route path="/" element={<Home />}  auth={auth} />
+            <Route path="/iniciarsesion" 
+                   element={<SignIn />} auth={auth} />
+            <Route 
+              path="/validacion" 
+              element={
+                <RequireAuth auth={auth}>
+                  <Validation />
+                </RequireAuth>
+              } 
+            />
+            <Route
               path="/paneladministracion"
-              element={<AdminDashboard />}
+              element={
+                <RequireAuth auth={auth}>
+                  <AdminDashboard />
+                </RequireAuth>
+              }
             />
-            <ProtectedAuth
-              path="/validacion:id_user"
+            <Route
+              path="/validarusuario"
               element={<ResponsiveUpload />}
+              auth={auth} 
             />
-
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </Container>
     </ChakraProvider>
   );
 }
 
-const ProtectedRoute = ({ auth, element: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={() => (auth ? <Component /> : <Navigate replace to="/login" />)}
-    />
-  );
-};
+function RequireAuth({ children, auth }) {
+  let isAuthenticated = auth;
+  let userRole = localStorage.getItem('username');
+  let route = userRole == "admin" ? "/paneladministracion" : "/validacion";  
+  return isAuthenticated ? children : <Navigate to={route} />;
+}
 
-const ProtectedAuth = ({ auth, element: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={() => (!auth ? <Component /> : <Navigate replace to="/pagina" />)}
-    />
-  );
-};
+function CheckLogged({ children, redirectTo, auth }) {
+  let isAuthenticated = auth;
+  return !isAuthenticated ? children : <Navigate to={redirectTo} />;
+}
 
 export default App;

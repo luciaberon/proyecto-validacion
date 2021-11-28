@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { login } from "../features/auth/authSlice";
+import { useNavigate } from "react-router";
 import {
   Container,
   Input,
@@ -18,6 +19,7 @@ import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -25,6 +27,12 @@ export default function SignIn() {
   } = useForm();
   const onSubmit = (data) => {
     dispatch(login(data))
+    let role = localStorage.getItem('username');
+    if (role == "admin") {
+      navigate('/paneladministracion');
+    } else {
+      navigate('/validacion');
+    }
   }
   console.log(errors);
 

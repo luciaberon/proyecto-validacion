@@ -19,8 +19,7 @@ export const logout  = createAsyncThunk(
 export const register = createAsyncThunk(
     "auth/register",
     async (data) => {
-        console.log("REGISTRO",data);
-      authService.register(data);
+       return authService.register(data);
     }
 );
 

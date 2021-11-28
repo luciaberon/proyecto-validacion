@@ -1,7 +1,8 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import { register } from '../features/auth/authSlice';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux";
 import {
   Container,
@@ -17,7 +18,7 @@ import {
 import {
   InputControl,
 } from "formik-chakra-ui";
-import { PhoneIcon, EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Home() {
 
@@ -77,7 +78,7 @@ export default function Home() {
         validationSchema={registerSchema}
         onSubmit={async(values) => {
           dispatch(register(values));
-      }}
+        }}
       >
       {({ values,
             touched,
@@ -96,7 +97,7 @@ export default function Home() {
                     inputProps={{ placeholder: 'Nombre' }}
                   />
 
-                  <InputControl  id="surname" name="surname"
+                  <InputControl id="surname" name="surname"
                     mt={6}
                     variant="flushed"
                     type="text"

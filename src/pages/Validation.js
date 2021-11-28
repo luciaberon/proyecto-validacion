@@ -9,7 +9,8 @@ const userFalso = {
   validationUrl: "http://google.es",
 };
 
-const QRURL = `/validacion`;
+const username = localStorage.getItem('username');
+const QRURL = `https://luciaberon.github.io/proyecto-validacion/#/validarusuario?${username}`;
 
 export default function Validation() {
   return (
