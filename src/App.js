@@ -75,7 +75,7 @@ const ProtectedAuth = ({auth,component:Component,...rest}) => {
       <Component />
     ): 
       (
-        <Redirect to="/validacion" />   
+        <Redirect to="/panelusuario" />   
       )
     }
     />

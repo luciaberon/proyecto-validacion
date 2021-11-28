@@ -9,7 +9,7 @@ const headers = {
 export const login = async (data) => {
     console.log(data)
     console.log(headers)
-    const response = await axios.post('https://validacion-test.herokuapp.com/api/auth/login', data);  
+    const response = await axios.post('https://validacion-desarrollo.herokuapp.com/api/auth/login/', data);  
 
     if (response.data.token) {
         localStorage.setItem('user',response.data.token);
@@ -24,7 +24,7 @@ export const logout = () => {
 
 export const register = data => {
     console.log("Data",data);
-    axios.post('https://validacion-test.herokuapp.com/api/auth/register/', data)
+    axios.post('https://validacion-desarrollo.herokuapp.com/api/auth/register/', data)
 }
 
 // Authentication service
