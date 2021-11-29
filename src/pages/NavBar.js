@@ -4,6 +4,7 @@ import {
   Flex,
   Link,
 } from "@chakra-ui/react";
+import { logout } from '../services/AuthService';
 import ThemeToggleButton from "../components/theme-toggle-button";
 import { useHistory } from 'react-router-dom';
 
@@ -25,7 +26,7 @@ export default function NavBar() {
           <Button  m={2} colorScheme="teal">Registrate</Button>
         </Link></>
 
-        <Link onClick={() => history.push('/')}>
+        <Link onClick={() => logout()}>
           <Button m={2} colorScheme="red">Salir</Button>
         </Link>
         <ThemeToggleButton  />

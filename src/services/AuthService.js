@@ -18,7 +18,8 @@ export const login = async (data) => {
 }
 
 export const logout = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('name');
+    localStorage.removeItem('username');
 }
 
 

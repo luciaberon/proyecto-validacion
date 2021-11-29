@@ -39,7 +39,7 @@ function App() {
           <Switch>
             <ProtectedAuth exact path="/" component={Home} auth={auth} />
             <ProtectedAuth exact path="/iniciarsesion" component={SignIn} auth={auth} />
-            <ProtectedRoute exact path="/validacion" component={Validation} auth={auth} />
+            <Route exact path="/validacion" component={Validation} auth={auth} />
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
             <ProtectedRoute exact path="/validarusuario" component={ResponsiveUpload} auth={auth} />
             <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
@@ -68,6 +68,7 @@ const ProtectedRoute = ({auth,component:Component,...rest}) => {
 }
 
 const ProtectedAuth = ({auth,component:Component,...rest}) => {
+  const role = localStorage.getItem('username') === 'Admin' ? 'paneladministracion' : 'panelusuario'
   return (
     <Route
     {...rest}

@@ -20,6 +20,7 @@ import {
 } from "formik-chakra-ui";
 import { EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import UserDashboard from "./UserDashboard";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
 
@@ -54,6 +55,7 @@ export default function Home() {
     )
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -78,7 +80,12 @@ export default function Home() {
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={async(values) => {
+          console.log("VALUES",values);
           dispatch(register(values));
+          console.log("USERNAME",values.username);
+          localStorage.setItem('username',values.username);
+          localStorage.setItem('name',values.name)
+          history.push(`/validacion`);
         }}
       >
       {({ values,
