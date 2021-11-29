@@ -1,7 +1,12 @@
 import { Box, Heading, Flex, Img } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function UserDashboard() {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    const response = axios.get('')
+  }, [])
   const userFalso = {
     name: "Fulanito",
     lastname: "Garcia",

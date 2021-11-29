@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from 'formik';
-import { register } from '../features/auth/authSlice';
+import { register,login } from '../features/auth/authSlice';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux";

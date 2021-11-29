@@ -38,10 +38,10 @@ function App() {
         <NavBar />
           <Switch>
             <ProtectedAuth exact path="/" component={Home} auth={auth} />
-            <ProtectedAuth exact path="/iniciarsesion" component={SignIn} auth={auth} />
+            <Route exact path="/iniciarsesion" component={SignIn} auth={auth} />
             <Route exact path="/validacion" component={Validation} auth={auth} />
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
-            <ProtectedRoute exact path="/validarusuario" component={ResponsiveUpload} auth={auth} />
+            <Route exact path="/validarusuario/:username" component={ResponsiveUpload} auth={auth} />
             <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
 
             <Route component={NotFound} />
