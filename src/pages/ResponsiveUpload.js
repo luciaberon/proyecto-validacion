@@ -45,7 +45,12 @@ export default function ResponsiveUpload() {
   const [confirm, setConfirm] = useState(false);
 
   const upload = () => {
-    uploadPhotos(firstPic,secondPic);
+    console.log("photo1",firstPic);
+    console.log("photo2",firstPic);
+    uploadPhotos({
+      "photo1":firstPic,
+      "photo2":secondPic
+    });
   }
 
   const handleImg1 = (data) => {
@@ -78,8 +83,8 @@ export default function ResponsiveUpload() {
       </UnorderedList>
 
       <form onSubmit={upload}>
-        <input type="file" onChange={handleImg1} name="files" required></input>
-        <input type="file" onChange={handleImg2} name="files" required></input>
+        <input type="file" onChange={handleImg1} name="photo1" required></input>
+        <input type="file" onChange={handleImg2} name="photo2" required></input>
         <input type="submit" value="ENVIAR FOTOS"></input>
       </form>
 

@@ -6,6 +6,7 @@ import QRCode from "react-qr-code";
 export default function Validation() {
 
     const username = localStorage.getItem('username');
+    const token = localStorage.getItem('token');
     const name = localStorage.getItem('name');
     const QRURL = `https://luciaberon.github.io/proyecto-validacion/#/validarusuario/${username}`;
     return (
