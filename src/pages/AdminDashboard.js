@@ -27,6 +27,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const response = getAllUsers();
+    console.log(response)
     setUsers(users);
   }, [])
 

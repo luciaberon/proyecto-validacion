@@ -38,13 +38,20 @@ function App() {
         <HashRouter>
         <NavBar />
           <Switch>
-            <ProtectedAuth exact path="/" component={Home} auth={auth} />
-            <Route exact path="/iniciarsesion" component={SignIn} auth={auth} />
-            <Route exact path="/validacion" component={Validation} auth={auth} />
-            <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
+            /// register
+            <Route exact path="/" component={Home} auth={auth} />
+            /// onboarding with validate identity button
             <Route exact path="/onboarding" component={Onboarding} />
-            <Route exact path="/validarusuario/:username" component={ResponsiveUpload} auth={auth} />
+            /// qr code
+            <Route exact path="/validacion" component={Validation} auth={auth} />
+            /// login
+            <ProtectedAuth exact path="/iniciarsesion" component={SignIn} auth={auth} />
+            // upload images
+            <ProtectedRoute exact path="/validarusuario/:username" component={ResponsiveUpload} auth={auth} />
+            // user panel
             <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
+            /// admin panel
+            <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
 
             <Route component={NotFound} />
           </Switch>
@@ -70,7 +77,7 @@ const ProtectedRoute = ({auth,component:Component,...rest}) => {
 }
 
 const ProtectedAuth = ({auth,component:Component,...rest}) => {
-  const role = localStorage.getItem('username') === 'Admin' ? 'paneladministracion' : 'panelusuario'
+  const panel = localStorage.getItem('username') === 'Admin' ? 'paneladministracion' : 'panelusuario'
   return (
     <Route
     {...rest}
@@ -78,11 +85,12 @@ const ProtectedAuth = ({auth,component:Component,...rest}) => {
       <Component />
     ): 
       (
-        <Redirect to="/panelusuario" />   
+        <Redirect to={`/${panel}`} />   
       )
     }
     />
   )
 }
+
 
 export default App;
