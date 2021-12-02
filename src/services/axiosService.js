@@ -1,6 +1,10 @@
 import http from '../utils/config/axios.config';
 
 
+export const uploadPhotos = (photos) => {
+    return http.post(`/onboarding/photos/${localStorage.getItem('username')}`,photos)
+}
+
 // http.interceptors.request.use(function (config) {
 //     let token = localStorage.getItem('user')
 

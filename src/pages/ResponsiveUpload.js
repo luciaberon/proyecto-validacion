@@ -8,9 +8,11 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import axios from 'axios';
+import ImageUploader from 'react-images-upload';
 import http from '../utils/config/axios.config';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { uploadPhotos } from "../services/axiosService";
 
 // Import React FilePond
 import { FilePond, File, registerPlugin } from 'react-filepond'
@@ -36,22 +38,30 @@ export default function ResponsiveUpload() {
   //Hacer fetch del usuario con ese id
   const [files, setFiles] = useState(null);
   const [error, setError] = useState(null);
-  const [id,setId] = useState();
 
-  useEffect(() => {
-    const response = http.get(`/onboarding/${username}`);
-    console.log("RESPONSE",response);
-    setId(response.id);
-  }, [])
-
+  const [pictures, setPictures] = useState([1,2]);
+  const [firstPic, setFirstPic] = useState();
+  const [secondPic, setSecondPic] = useState();
   const [confirm, setConfirm] = useState(false);
 
-  const types = ["image/png", "image/jpeg", "image/jpg"];
+  const upload = () => {
+    uploadPhotos(firstPic,secondPic);
+  }
 
+  const handleImg1 = (data) => {
+    console.log("image data",data)
+    setFirstPic(data);
+  }
+
+  const handleImg2 = (data) => {
+    console.log("image data",data)
+    setSecondPic(data);
+  }
+
+  const types = ["image/png", "image/jpeg", "image/jpg"];
   console.log("username uplaod page", username);
+
   return (
-    <> 
-    { !confirm ?
     <Flex direction="column" align="center" justify="center">
       <Heading mb={6}>Bienvenido</Heading>
       <Text align="center">
@@ -66,35 +76,16 @@ export default function ResponsiveUpload() {
           documentos
         </ListItem>
       </UnorderedList>
-      <form>
-        
-        <FilePond
-          files={files}
-          onupdatefiles={setFiles}
-          allowMultiple={true}
-          maxFiles={2}
-          server={{
-                process: {
-                    url: "https://validacion-test.herokuapp.com/api/onboarding/dni",
-                    headers: {
-                      Authorization: 'Bearer ' + localStorage.getItem('user')
-                    },
-                    ondata: (formData) => {
-                      formData.append('username', username);
-                      formData.append('id',id);
-                      return formData;
-                      },
-                    onload: () => {
-                      setConfirm(true);
-                    }
-              }
-          }}
-          name="files"
-          labelIdle='Drag and Drop your files or <span class="filepond--label-action">Browse</span>'
-        />
+
+      <form onSubmit={upload}>
+        <input type="file" onChange={handleImg1} name="files" required></input>
+        <input type="file" onChange={handleImg2} name="files" required></input>
+        <input type="submit" value="ENVIAR FOTOS"></input>
       </form>
+
+      
     </Flex>
-    : 'Imágenes subidas. Espere a la validación por parte del administrador'}
-    </>
+    
   );
+  
 }

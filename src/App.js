@@ -19,6 +19,7 @@ import Validation from "./pages/Validation";
 import AdminDashboard from "./pages/AdminDashboard";
 import ResponsiveUpload from "./pages/ResponsiveUpload";
 import UserDashboard from './pages/UserDashboard';
+import Onboarding from './pages/Onboarding';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Route exact path="/iniciarsesion" component={SignIn} auth={auth} />
             <Route exact path="/validacion" component={Validation} auth={auth} />
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
+            <Route exact path="/onboarding" component={Onboarding} />
             <Route exact path="/validarusuario/:username" component={ResponsiveUpload} auth={auth} />
             <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
 

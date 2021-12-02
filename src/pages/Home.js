@@ -84,8 +84,9 @@ export default function Home() {
           dispatch(register(values));
           console.log("USERNAME",values.username);
           localStorage.setItem('username',values.username);
+          localStorage.setItem('password', values.password);
           localStorage.setItem('name',values.name)
-          history.push(`/validacion`);
+          history.push(`/onboarding`);
         }}
       >
       {({ values,
