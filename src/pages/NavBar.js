@@ -7,28 +7,40 @@ import {
 import { logout } from '../services/AuthService';
 import ThemeToggleButton from "../components/theme-toggle-button";
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { checkLogged } from '../features/auth/authSlice';
 
 export default function NavBar() {
   let history = useHistory();
+  const isLogged = useSelector(state => state.auth.isLoggedIn);
+
+  console.log("isLogged = ",isLogged);
 
   return (
     <Flex
       mb={20}
       justify="center"
       wrap="wrap"
-    >
-        <><Link onClick={() => history.push('/iniciarsesion')}>
+    > 
+        { isLogged ||
+        <>
+        <Link onClick={() => history.push('/iniciarsesion')}>
           <Button m={2} colorScheme="teal">
             Inicia Sesión
           </Button>
         </Link>
         <Link onClick={() => history.push('/')}>
           <Button  m={2} colorScheme="teal">Registrate</Button>
-        </Link></>
+        </Link>
+        </> 
+        }
 
+        { isLogged &&        
         <Link onClick={() => logout()}>
           <Button m={2} colorScheme="red">Salir</Button>
         </Link>
+        }
+
         <ThemeToggleButton  />
     </Flex>
   );

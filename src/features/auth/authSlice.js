@@ -5,7 +5,6 @@ import { authService } from  '../../services/AuthService';
 export const login = createAsyncThunk(
     "auth/login",
     async (data) => {
-        console.log("dataaaaaa",data);
       await authService.login(data);
     }
   );
