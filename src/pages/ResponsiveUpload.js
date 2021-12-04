@@ -26,45 +26,44 @@ import 'filepond/dist/filepond.min.css'
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import { queryByAttribute } from "@testing-library/react";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 
 
 export default function ResponsiveUpload() {
-  const {username} = useParams();
+  const {token} = useParams();
   const history = useHistory();
-  // Para mandarlo al back asociado al id
-  //Hacer fetch del usuario con ese id
-  const [files, setFiles] = useState(null);
-  const [error, setError] = useState(null);
 
-  const [pictures, setPictures] = useState([1,2]);
+  if(token !== null) {
+    localStorage.setItem("user",token);
+  }
+  console.log("token",token)//123
+
   const [firstPic, setFirstPic] = useState();
   const [secondPic, setSecondPic] = useState();
-  const [confirm, setConfirm] = useState(false);
 
-  const upload = () => {
+  const upload = (e) => {
+    e.preventDefault();
     console.log("photo1",firstPic);
-    console.log("photo2",firstPic);
-    uploadPhotos({
-      "photo1":firstPic,
-      "photo2":secondPic
-    });
+    uploadPhotos(firstPic,secondPic);
+    history.push('/panelusuario');
   }
 
-  const handleImg1 = (data) => {
-    console.log("image data",data)
-    setFirstPic(data);
+  const handleImg1 = () => {
+    const pic = document.getElementById("photo1");
+    const selectedFile = pic.files[0];
+    setFirstPic(selectedFile);
   }
 
-  const handleImg2 = (data) => {
-    console.log("image data",data)
-    setSecondPic(data);
+  const handleImg2 = () => {
+    const pic = document.getElementById("photo2");
+    const selectedFile = pic.files[0];
+    setSecondPic(selectedFile);
   }
 
   const types = ["image/png", "image/jpeg", "image/jpg"];
-  console.log("username uplaod page", username);
 
   return (
     <Flex direction="column" align="center" justify="center">
@@ -82,13 +81,12 @@ export default function ResponsiveUpload() {
         </ListItem>
       </UnorderedList>
 
-      <form onSubmit={upload}>
-        <input type="file" onChange={handleImg1} name="photo1" required></input>
-        <input type="file" onChange={handleImg2} name="photo2" required></input>
+      <form onSubmit={(e) => upload(e)}>
+        <input type="file" onChange={handleImg1} id="photo1" name="photo1" required></input>
+        <input type="file" onChange={handleImg2} id="photo2" name="photo2" required></input>
         <input type="submit" value="ENVIAR FOTOS"></input>
       </form>
 
-      
     </Flex>
     
   );

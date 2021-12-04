@@ -4,18 +4,12 @@ import { getUser } from "../services/axiosService";
 
 export default function UserDashboard() {
   const [user, setUser] = useState();
-  useEffect(() => {
-    const response = getUser();
-    console.log("Response to getUser(): ", response);
-    setUser(response)
+  useEffect(async() => {
+    const response = await getUser();
+    console.log("Response to getUser(): ", response.data.user);
+    setUser(response.data.user)
   }, [])
-  const userFalso = {
-    name: "Fulanito",
-    lastname: "Garcia",
-    validate: true,
-    img1: "https://www.diariodesevilla.es/2021/02/07/sociedad/gatos-pelo-conocias-razas_1545155550_133880457_667x375.png",
-    img2: "https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1600&h=1067",
-  };
+
   return (
     <div>
       {user &&
@@ -26,8 +20,8 @@ export default function UserDashboard() {
       <Flex direction="column" align="center" mt={5}>
         {" "}
         <Heading size="md">Documentos aportados</Heading>
-        <Img m={3} src={user.img1} alt="img2" />
-        <Img m={3} src={user.img2} alt="img2"/>
+        <Img m={3} src={user.urlDni1} alt="img2" />
+        <Img m={3} src={user.urlDni2} alt="img2"/>
       </Flex>
 
       {user.validate === true && (

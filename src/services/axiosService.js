@@ -1,8 +1,24 @@
 import http from '../utils/config/axios.config';
+import axios from 'axios';
 
 
-export const uploadPhotos = (photos) => {
-    return http.put(`/onboarding/photos/${localStorage.getItem('username')}`,photos);
+let config = axios.create({
+    baseURL: 'https://validacion-desarrollo.herokuapp.com/api',
+    headers: { 
+      'accept': 'application/json', 
+      'Authorization': `Bearer ${localStorage.getItem('user')}`, 
+    },
+});
+
+
+export const uploadPhotos = (firstPic,secondPic) => {
+    let data = new FormData();
+    data.append('photo1', firstPic);
+    data.append('photo2', secondPic);
+    console.log("http config",config)
+    console.log("token",localStorage.getItem('user'))
+    config.put(`/onboarding/photos/${localStorage.getItem('username')}`,data)
+    .then(res => console.log(res))
 }
 
 export const getUser = () => {

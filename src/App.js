@@ -47,9 +47,9 @@ function App() {
             /// login
             <ProtectedAuth exact path="/iniciarsesion" component={SignIn} auth={auth} />
             // upload images
-            <ProtectedRoute exact path="/validarusuario/:username" component={ResponsiveUpload} auth={auth} />
+            <Route exact path="/validarusuario/:username/:token" component={ResponsiveUpload} auth={auth} />
             // user panel
-            <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
+            <Route exact path="/panelusuario" component={UserDashboard} auth={auth} />
             /// admin panel
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
 
