@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/proyecto-validacion/static/css/main.10852826.chunk.css",
-    "main.js": "/proyecto-validacion/static/js/main.246ee969.chunk.js",
-    "main.js.map": "/proyecto-validacion/static/js/main.246ee969.chunk.js.map",
+    "main.js": "/proyecto-validacion/static/js/main.98400b40.chunk.js",
+    "main.js.map": "/proyecto-validacion/static/js/main.98400b40.chunk.js.map",
     "runtime-main.js": "/proyecto-validacion/static/js/runtime-main.3844af02.js",
     "runtime-main.js.map": "/proyecto-validacion/static/js/runtime-main.3844af02.js.map",
-    "static/js/2.2b8f76a8.chunk.js": "/proyecto-validacion/static/js/2.2b8f76a8.chunk.js",
-    "static/js/2.2b8f76a8.chunk.js.map": "/proyecto-validacion/static/js/2.2b8f76a8.chunk.js.map",
+    "static/js/2.dcfc7437.chunk.js": "/proyecto-validacion/static/js/2.dcfc7437.chunk.js",
+    "static/js/2.dcfc7437.chunk.js.map": "/proyecto-validacion/static/js/2.dcfc7437.chunk.js.map",
     "index.html": "/proyecto-validacion/index.html",
     "static/css/main.10852826.chunk.css.map": "/proyecto-validacion/static/css/main.10852826.chunk.css.map",
-    "static/js/2.2b8f76a8.chunk.js.LICENSE.txt": "/proyecto-validacion/static/js/2.2b8f76a8.chunk.js.LICENSE.txt"
+    "static/js/2.dcfc7437.chunk.js.LICENSE.txt": "/proyecto-validacion/static/js/2.dcfc7437.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3844af02.js",
-    "static/js/2.2b8f76a8.chunk.js",
+    "static/js/2.dcfc7437.chunk.js",
     "static/css/main.10852826.chunk.css",
-    "static/js/main.246ee969.chunk.js"
+    "static/js/main.98400b40.chunk.js"
   ]
 }
