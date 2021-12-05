@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { login } from "../features/auth/authSlice";
-import axios from "axios";
-import { Button, Heading, Text, Container } from "@chakra-ui/react";
+import { Button, Heading, Text, Container, Avatar } from "@chakra-ui/react";
 
 const Onboarding = () => {
   const history = useHistory();
@@ -24,10 +23,12 @@ const Onboarding = () => {
   const name = localStorage.getItem("name");
 
   return (
-    <Container>
+    <Container align="center">
+            <Avatar bg="teal.500" size="xl" mb={5}/>
+
       {show && <Heading>LOGGED</Heading>}
-      <Heading>Gracias por registrarse {name} </Heading>
-      <Text>
+      <Heading mb={5}>Gracias por registrarse {name} </Heading>
+      <Text mb={5}>
         Para continuar, necesitamos que nos proporcione su documento de
         ideantidad. Por favor, siga los siguientes pasos:
       </Text>
