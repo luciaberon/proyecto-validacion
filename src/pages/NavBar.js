@@ -16,6 +16,11 @@ export default function NavBar() {
 
   console.log("isLogged = ",isLogged);
 
+  const logoutAcc = () => {
+    logout();
+    history.push('/iniciarsesion');
+  } 
+
   return (
     <Flex
       mb={20}
@@ -36,7 +41,7 @@ export default function NavBar() {
         }
 
         { isLogged &&        
-        <Link onClick={() => logout()}>
+        <Link onClick={() => logoutAcc()}>
           <Button m={2} colorScheme="red">Salir</Button>
         </Link>
         }

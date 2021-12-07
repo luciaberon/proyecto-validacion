@@ -30,7 +30,7 @@ export default function SignIn() {
     if (role === "admin") {
       history.push('/paneladministracion');
     } else {
-      history.push('/validacion');
+      history.push('/panelusuario');
     }
   }
   console.log(errors);

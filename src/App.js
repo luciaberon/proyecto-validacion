@@ -39,9 +39,9 @@ function App() {
         <NavBar />
           <Switch>
             /// register
-            <Route exact path="/" component={Home} auth={auth} />
+            <ProtectedAuth exact path="/" component={Home} auth={auth} />
             /// onboarding with validate identity button
-            <Route exact path="/onboarding" component={Onboarding} />
+            <ProtectedAuth exact path="/onboarding" component={Onboarding} />
             /// qr code
             <Route exact path="/validacion" component={Validation} auth={auth} />
             /// login
@@ -76,8 +76,14 @@ const ProtectedRoute = ({auth,component:Component,...rest}) => {
   )
 }
 
+
+
+
+
+
 const ProtectedAuth = ({auth,component:Component,...rest}) => {
   const panel = localStorage.getItem('username') === 'Admin' ? 'paneladministracion' : 'panelusuario'
+  console.log("auth?",  auth)
   return (
     <Route
     {...rest}

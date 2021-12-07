@@ -15,8 +15,9 @@ export const uploadPhotos = (firstPic,secondPic) => {
     let data = new FormData();
     data.append('photo1', firstPic);
     data.append('photo2', secondPic);
-    config.put(`/onboarding/photos/${localStorage.getItem('username')}`,data)
-    .then(res => console.log(res))
+    console.log("token from uplado photos:",localStorage.getItem('user'))
+    return config.put(`/onboarding/photos/${localStorage.getItem('username')}`,data)
+
 }
 
 export const getUser = () => {

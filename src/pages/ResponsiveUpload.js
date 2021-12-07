@@ -5,6 +5,7 @@ import {
   UnorderedList,
   ListItem,
 } from "@chakra-ui/react";
+import { ResetButton } from "formik-chakra-ui";
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { uploadPhotos } from "../services/axiosService";
@@ -19,12 +20,19 @@ export default function ResponsiveUpload() {
 
   const [firstPic, setFirstPic] = useState();
   const [secondPic, setSecondPic] = useState();
+  const [error, setError] = useState(false);
 
-  const upload = (e) => {
+  const upload = async(e) => {
     e.preventDefault();
+    setError(false);
     console.log("photo1",firstPic);
-    uploadPhotos(firstPic,secondPic);
-    history.push('/panelusuario');
+    try {
+      const res = await uploadPhotos(firstPic,secondPic);
+      history.push('/panelusuario');
+    } catch (e) {
+      setError(true);
+    }
+   
   }
 
   const handleImg1 = () => {
@@ -61,7 +69,12 @@ export default function ResponsiveUpload() {
         <input type="file" onChange={handleImg1} id="photo1" name="photo1" required></input>
         <input type="file" onChange={handleImg2} id="photo2" name="photo2" required></input>
         <input type="submit" value="ENVIAR FOTOS"></input>
+
       </form>
+      
+      { 
+          error && <div>Error al cargar las imágenes, intente nuevamente.</div> 
+      }
 
     </Flex>
     

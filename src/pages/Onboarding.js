@@ -9,17 +9,24 @@ const Onboarding = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [error, setError] = useState(false);
 
   const setLogin = () => {
     setShow(true);
-    dispatch(
-      login({
-        username: localStorage.getItem("username"),
-        password: localStorage.getItem("password"),
+    setError(false);
+    try {
+      dispatch(
+        login({
+          username: localStorage.getItem("username"),
+          password: localStorage.getItem("password"),
+        })
+      ).then(res => {
+        console.log("login done, redirect");
+        history.push("/validacion");
       })
-    );
-    console.log("login done, redirect");
-    history.push("/validacion");
+    } catch (e) {
+      setError(true);
+    }
   };
   const name = localStorage.getItem("name");
 
@@ -34,6 +41,7 @@ const Onboarding = () => {
       <Button colorScheme="teal" m={5} onClick={setLogin}>
         VALIDAR IDENTIDAD
       </Button>
+      { error && <div>Error al procesar solicitud, intente nuevamente.</div>}
     </Container>
   );
 };

@@ -1,13 +1,18 @@
 import { Box, Heading, Flex, Img } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUser } from "../services/axiosService";
+import { useHistory } from "react-router";
 
 export default function UserDashboard() {
+  const history = useHistory();
   const [user, setUser] = useState();
   useEffect(async() => {
     const response = await getUser();
     console.log("Response to getUser(): ", response.data.user);
     setUser(response.data.user)
+    if (user.urlDni1 === null) {
+      history.push('/onboarding');
+    }
   }, [])
 
   return (
