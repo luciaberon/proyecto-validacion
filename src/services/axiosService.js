@@ -11,12 +11,22 @@ let config = axios.create({
 });
 
 
-export const uploadPhotos = (firstPic,secondPic) => {
+export const uploadPhotos = async(firstPic,secondPic,username,token) => {
     let data = new FormData();
     data.append('photo1', firstPic);
     data.append('photo2', secondPic);
     console.log("token from uplado photos:",localStorage.getItem('user'))
-    return config.put(`/onboarding/photos/${localStorage.getItem('username')}`,data)
+    console.log("username uplado", username)
+    console.log("tokeeeen uplado", token)
+
+    const res = await axios.put(`https://validacion-desarrollo.herokuapp.com/api/onboarding/photos/${username}`,data, {
+        headers: {
+            'accept': 'application/json', 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return res;
 
 }
 

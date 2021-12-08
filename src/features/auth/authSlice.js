@@ -11,7 +11,8 @@ export const login = createAsyncThunk(
 
 export const logout  = createAsyncThunk(
     "auth/logout",
-    async () => {
+    () => {
+      console.log("logout?")
       authService.logout();
     }
 );
@@ -44,6 +45,8 @@ const slice = createSlice({
             state.isLoggedIn = true;
         },
         [logout.fulfilled]: (state) => {
+            console.log("logging out")
+            localStorage.clear();
             state.isLoggedIn = false;
         },
         [register.fulfilled]: (state) => {

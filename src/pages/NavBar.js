@@ -4,20 +4,22 @@ import {
   Flex,
   Link,
 } from "@chakra-ui/react";
-import { logout } from '../services/AuthService';
+import { logout } from '../features/auth/authSlice';
 import ThemeToggleButton from "../components/theme-toggle-button";
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { checkLogged } from '../features/auth/authSlice';
 
 export default function NavBar() {
+  const dispatch = useDispatch()
   let history = useHistory();
   const isLogged = useSelector(state => state.auth.isLoggedIn);
 
   console.log("isLogged = ",isLogged);
 
   const logoutAcc = () => {
-    logout();
+    dispatch(logout());
     history.push('/iniciarsesion');
   } 
 
@@ -41,7 +43,7 @@ export default function NavBar() {
         }
 
         { isLogged &&        
-        <Link onClick={() => logoutAcc()}>
+        <Link onClick={logoutAcc}>
           <Button m={2} colorScheme="red">Salir</Button>
         </Link>
         }

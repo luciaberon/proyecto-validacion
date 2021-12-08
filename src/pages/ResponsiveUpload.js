@@ -12,6 +12,7 @@ import { uploadPhotos } from "../services/axiosService";
 
 export default function ResponsiveUpload() {
   const {token} = useParams();
+  const {username} = useParams();
   const history = useHistory();
 
   if(token !== null) {
@@ -25,14 +26,11 @@ export default function ResponsiveUpload() {
   const upload = async(e) => {
     e.preventDefault();
     setError(false);
-    console.log("photo1",firstPic);
-    try {
-      const res = await uploadPhotos(firstPic,secondPic);
-      history.push('/panelusuario');
-    } catch (e) {
-      setError(true);
-    }
-   
+    console.log("token uplado",localStorage.getItem('user'));
+    const res = await uploadPhotos(firstPic,secondPic,username,token);
+    console.log("res",res)
+    history.push('/panelusuario');
+    history.go(0);
   }
 
   const handleImg1 = () => {

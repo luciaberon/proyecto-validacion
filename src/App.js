@@ -29,6 +29,7 @@ function App() {
   useEffect(() => {
     console.log("checking")
     dispatch(checkLogged());
+    console.log("checked",auth)
   }, []);
 
   return (
@@ -49,7 +50,7 @@ function App() {
             // upload images
             <Route exact path="/validarusuario/:username/:token" component={ResponsiveUpload} auth={auth} />
             // user panel
-            <Route exact path="/panelusuario" component={UserDashboard} auth={auth} />
+            <ProtectedRoute exact path="/panelusuario" component={UserDashboard} auth={auth} />
             /// admin panel
             <ProtectedRoute exact path="/paneladministracion" component={AdminDashboard} auth={auth}/>
 
