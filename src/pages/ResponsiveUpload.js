@@ -4,6 +4,7 @@ import {
   Heading,
   UnorderedList,
   ListItem,
+  Button,
 } from "@chakra-ui/react";
 import { ResetButton } from "formik-chakra-ui";
 import React, { useState } from "react";
@@ -15,8 +16,8 @@ export default function ResponsiveUpload() {
   const {username} = useParams();
   const history = useHistory();
 
-  if(token !== null) {
-    localStorage.setItem("user",token);
+  if (token !== null) {
+    localStorage.setItem("user", token);
   }
 
   const [firstPic, setFirstPic] = useState();
@@ -37,13 +38,23 @@ export default function ResponsiveUpload() {
     const pic = document.getElementById("photo1");
     const selectedFile = pic.files[0];
     setFirstPic(selectedFile);
-  }
+  };
 
   const handleImg2 = () => {
     const pic = document.getElementById("photo2");
     const selectedFile = pic.files[0];
     setSecondPic(selectedFile);
-  }
+  };
+  const hiddenFileInput1 = React.useRef(null);
+  const hiddenFileInput2 = React.useRef(null);
+
+  const handleClick = (event) => {
+    hiddenFileInput1.current.click();
+  };
+
+  const handleClickBis = (event) => {
+    hiddenFileInput2.current.click();
+  };
 
   const types = ["image/png", "image/jpeg", "image/jpg"];
 
@@ -75,7 +86,5 @@ export default function ResponsiveUpload() {
       }
 
     </Flex>
-    
   );
-  
 }
